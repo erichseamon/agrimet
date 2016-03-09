@@ -10,16 +10,15 @@ system("awk '{if (NR!=1) {print}}' agrimet_locations.csv > agrimet_locations_les
 locations <- read.csv("/home/git/data/agrimet/agrimet_locations_lessone.csv", header = TRUE)
 locations <- data.frame(locations)
 
-locationlist <- data.frame(locations[,1])
+locationlist <- as.vector(locations[,1])
 locationnumber <- nrow(locations)
-
-
-
-wget_string = "wget -N --no-parent http://www.rma.usda.gov/data/indemnity"
-system(wget_string,intern=TRUE)
 
 for (i in locationlist){
   
+usbr_url <- paste('"http://www.usbr.gov/pn-bin/agrimet.pl?cbtt=', i, '&back=192&interval=instant&format=2"', sep="")
+outputfile <- paste("agrimet_", i, sep="")
+system(paste("curl ", usbr_url, " > ", outputfile, sep=""))
 
-system("curl 'http://www.usbr.gov/pn-bin/agrimet.pl?cbtt=CHAW&back=192&interval=instant&format=2' > text")
+
+system("grep -ozP '(?s)BEGIN DATA\n\K.*?(?=\END DATA)' test) 
 }
