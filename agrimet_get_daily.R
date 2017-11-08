@@ -3,6 +3,7 @@ library(plotKML)
 setwd("/home/git/data/agrimet/")
 path <- setwd("/home/git/data/agrimet/parameters/")
 
+
 #--extract and data frame agrimet locations
 
 #system("curl 'http://www.usbr.gov/pn/agrimet/location.csv' > /home/git/data/agrimet/agrimet_locations.csv")
